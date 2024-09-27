@@ -12,6 +12,11 @@ const WebIntegration = () => {
 
   const handleClick = () => {
     if (scriptStatus === 'ready') {
+      if (selelctedProduct === '') {
+        alert('Please select a product');
+        return;
+      }
+
       initSmileIdentity({
         product: selelctedProduct,
       });

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare const SmileIdentity: any;
 export const useSmileId = () => {
-  const baseAPIURL = `${process.env.VITE_SANDBOX_URL}`;
 
-  const getWebToken = async (baseAPIURL: string, product: string) => {
+  const getWebToken = async (product: string) => {
+    const baseAPIURL = `${process.env.VITE_SANDBOX_URL}`;
     const fetchConfig: RequestInit = {};
 
     fetchConfig.cache = 'no-cache';
@@ -22,7 +22,7 @@ export const useSmileId = () => {
     try {
       const response = await fetch(URL, fetchConfig);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         const json = await response.json();
 
         if (json.error) {
@@ -42,27 +42,36 @@ export const useSmileId = () => {
     token: string,
     product: string,
   ) => {
+    const callback_url = `${process.env.VITE_CALLBACK_URL}`;
+    const partner_id = `${process.env.VITE_PARTNER_ID}`;
     SmileIdentity({
       token,
       product,
-      callback_url: `url/callback`,
+      callback_url,
       environment: 'sandbox',
       partner_details: {
-        partner_id: `partner_id`,
-        name: `app_name`,
-        logo_url: `app_logo_url`,
-        policy_url: `data_privacy_policy_url`,
+        partner_id,
+        name: `Deriv`,
+        logo_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTAFsSsUijWsY8OPOc9i2muyKdgVkUGDuDKw&s`,
+        policy_url: `https://deriv.com/terms-and-conditions#clients`,
         theme_color: '#000',
       },
-      onSuccess: () => {},
-      onClose: () => {},
-      onError: () => {},
+
+      onSuccess: () => {
+        console.log('SmileIdentityWebIntegration: onSuccess');
+      },
+      onClose: () => {
+        console.log('SmileIdentityWebIntegration: onClose');
+      },
+      onError: () => {
+        console.log('SmileIdentityWebIntegration: onError');
+      },
     });
   };
 
   const initSmileIdentity = async ({ product }: { product: string }) => {
-    const token = await getWebToken(baseAPIURL, product);
-    configureSmileIdentityWebIntegration(token, product);
+    const response = await getWebToken(product);
+    configureSmileIdentityWebIntegration(response.token, product);
   };
 
   return { initSmileIdentity };
