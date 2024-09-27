@@ -1,6 +1,6 @@
 # smile-identity-poc
 
-This project is a proof of concept for integrating Smile Identity into a React application. It uses the Smile Identity (web Integration)[https://docs.usesmileid.com/integration-options/web-mobile-web/web-integration] to perform an identity verification flow.
+This project is a proof of concept for integrating Smile Identity into a React application. It uses the Smile Identity [web Integration](https://docs.usesmileid.com/integration-options/web-mobile-web/web-integration) to perform an identity verification flow.
 
 ## server app
 
