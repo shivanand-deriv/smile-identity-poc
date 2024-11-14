@@ -12,6 +12,12 @@ app.use(cors());
 app.use(express.json({ limit: '500kb' }));
 app.use(express.static('public'));
 
+app.get('/health-check', async (req, res) => {
+    res.status(200).json({
+      test: "yes",
+    });
+});
+
 app.get('/generate_signature', async (req, res) => {
   try {
     const partnerId = process.env.PARTNER_ID;
