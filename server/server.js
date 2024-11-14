@@ -73,7 +73,7 @@ app.post('/token', async (req, res, next) => {
 });
 
 // server setup
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
